@@ -56,7 +56,7 @@ class SerialPort:
         except:
             return False
 
-    # 读取串口数据
+    # 读取串口数据 修改后
     def read_serial(self):
         try:
             read_msg = self.ser.readln()
