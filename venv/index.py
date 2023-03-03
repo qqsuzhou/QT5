@@ -16,18 +16,40 @@ import hashlib
 import re
 import datetime
 from xlsxwriter  import *
-# 15:25 -- 15:35 休息
+
 
 # UI--Logic分离
 ui, _ = loadUiType('main.ui')
 login, _ = loadUiType('login.ui')
+myUI, _ = loadUiType('myUI.ui')
 
-
-class LoginAPP(QWidget, login):
+class myUIAPP(QWidget,myUI ):
     def __init__(self):
         QWidget.__init__(self)
         self.setupUi(self)
+
+        # 设置窗体样式
+        style = open("themes/darkorange.css", 'r')
+        style = style.read()
+        self.setStyleSheet(style)
+
+
+
+class LoginAPP(QWidget, login):
+    '''
+        LoginAPP:处理登录界面
+        handel_login():处理登录按钮，验证客户
+        handel_myTest(self):处理测试按钮
+        md5(self, arg): 数据加密
+    '''
+    def __init__(self):
+        QWidget.__init__(self)
+        self.setupUi(self)
+
+        # Button的消息与槽的通信
         self.loginbutton.clicked.connect(self.handel_login)
+        self.testbutton.clicked.connect(self.handel_myTest)
+        # 设置窗体样式
         style = open("themes/darkorange.css", 'r')
         style = style.read()
         self.setStyleSheet(style)
@@ -52,13 +74,21 @@ class LoginAPP(QWidget, login):
                 self.main_app = MainApp()
                 self.close()
                 self.main_app.show()
-
             else:
                 self.error_message.setText("用户名或密码错误，重新输入")
 
+    def handel_myTest(self):
+        self.main_app = myUIAPP()
+        self.close()
+        self.main_app.show()
 
 class MainApp(QMainWindow, ui):
-
+    '''
+        MainApp:图书管理界面
+        handel_login():处理登录按钮，验证客户
+        handel_myTest(self):处理测试按钮
+        md5(self, arg): 数据加密
+    '''
     # 定义构造方法
     def __init__(self):
         QMainWindow.__init__(self)
