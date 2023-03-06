@@ -12,8 +12,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
 import sys
 from dbutil import get_conn, close_conn
-import hashlib
-import re
+import hashlib      # hashlib提供了一些流行的hash(摘要)算法的Python标准库
+                    # 其中所包括的算法有 md5, sha1, sha224, sha256, sha384, sha512等
+                    # https://blog.csdn.net/weixin_42444693/article/details/104575153
+import re           # 正则表达式(re模块)  https://blog.csdn.net/guo_qingxia/article/details/113979135?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167781320216782427463323%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167781320216782427463323&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-113979135-null-null.142^v73^control_1,201^v4^add_ask,239^v2^insert_chatgpt&utm_term=re&spm=1018.2226.3001.4187
 import datetime
 from xlsxwriter  import *
 
@@ -33,7 +35,8 @@ class myUIAPP(QWidget,myUI ):
         style = style.read()
         self.setStyleSheet(style)
 
-
+        # Button的消息与槽的通信
+        self.clicked.connect(self.handel_login)
 
 class LoginAPP(QWidget, login):
     '''
@@ -53,6 +56,7 @@ class LoginAPP(QWidget, login):
         style = open("themes/darkorange.css", 'r')
         style = style.read()
         self.setStyleSheet(style)
+       # self.setStyleSheet()
 
     # MD5处理
     def md5(self, arg):
